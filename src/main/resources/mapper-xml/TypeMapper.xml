@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cookie.mapper.TypeMapper">
+  <resultMap id="BaseResultMap" type="com.cookie.pojo.Type">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cookie.pojo.Type">
+    insert into t_type (id, name)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cookie.pojo.Type">
+    insert into t_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cookie.pojo.Type">
+    update t_type
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cookie.pojo.Type">
+    update t_type
+    set name = #{name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_type
+  </select>
+
+  <select id="selectTypeBlog" resultMap="type_blog">
+    SELECT t.id,t.name,b.type_id
+    FROM t_type t,t_blog b
+    WHERE b.type_id=t.id
+  </select>
+
+    <resultMap id="type_blog" type="com.cookie.pojo.Type">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <collection property="blogs" ofType="com.cookie.pojo.Blog">
+            <id column="id" jdbcType="BIGINT" property="id" />
+            <result column="appreciation" jdbcType="BIT" property="appreciation" />
+            <result column="commentabled" jdbcType="BIT" property="commentabled" />
+            <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+            <result column="description" jdbcType="VARCHAR" property="description" />
+            <result column="first_picture" jdbcType="VARCHAR" property="firstPicture" />
+            <result column="flag" jdbcType="VARCHAR" property="flag" />
+            <result column="published" jdbcType="BIT" property="published" />
+            <result column="recommend" jdbcType="BIT" property="recommend" />
+            <result column="share_statement" jdbcType="BIT" property="shareStatement" />
+            <result column="title" jdbcType="VARCHAR" property="title" />
+            <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+            <result column="views" jdbcType="INTEGER" property="views" />
+            <result column="type_id" jdbcType="BIGINT" property="typeId" />
+            <result column="user_id" jdbcType="BIGINT" property="userId" />
+        </collection>
+    </resultMap>
+
+</mapper>

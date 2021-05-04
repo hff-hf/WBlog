@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cookie.mapper.BlogTagsMapper">
+  <resultMap id="BaseResultMap" type="com.cookie.pojo.BlogTags">
+    <result column="blogs_id" jdbcType="BIGINT" property="blogsId" />
+    <result column="tags_id" jdbcType="BIGINT" property="tagsId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.cookie.pojo.BlogTags">
+    insert into t_blog_tags (blogs_id, tags_id)
+    values (#{blogsId,jdbcType=BIGINT}, #{tagsId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cookie.pojo.BlogTags">
+    insert into t_blog_tags
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blogsId != null">
+        blogs_id,
+      </if>
+      <if test="tagsId != null">
+        tags_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blogsId != null">
+        #{blogsId,jdbcType=BIGINT},
+      </if>
+      <if test="tagsId != null">
+        #{tagsId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertEach">
+    insert into t_blog_tags (blogs_id, tags_id)
+    values
+    <if test="tagIdSet.size()>0">
+      <foreach collection="tagIdSet" item="item" separator=",">
+        (#{blogId},#{item})
+      </foreach>
+    </if>
+  </insert>
+
+</mapper>

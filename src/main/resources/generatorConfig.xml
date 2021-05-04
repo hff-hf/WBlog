@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <classPathEntry location="E:\Google\mysql-connector-java-5.1.47.jar"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+
+        <commentGenerator>
+        <property name="suppressAllComments" value="true"></property>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/blog?useSSL=false"
+                        userId="root"
+                        password="hff19970209...">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--生成实体类-->
+        <javaModelGenerator targetPackage="com.cookie.pojo" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--生成mapper.xml文件-->
+        <sqlMapGenerator targetPackage="mapper-xml"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--生成mapper接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cookie.mapper"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--<table tableName="mall_user" domainObjectName="User"-->
+               <!--enableCountByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--enableUpdateByExample="false">-->
+
+        <!--</table>-->
+        <!--<table tableName="mall_shipping" domainObjectName="Shipping"-->
+        <!--enableCountByExample="false"-->
+        <!--enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false">-->
+
+    <!--</table>-->
+        <table tableName="t_user" domainObjectName="User"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <!--<columnOverride column="sub_images" jdbcType="VARCHAR"/>-->
+            <!--<columnOverride column="detail" jdbcType="VARCHAR"/>-->
+        </table>
+    </context>
+</generatorConfiguration>
